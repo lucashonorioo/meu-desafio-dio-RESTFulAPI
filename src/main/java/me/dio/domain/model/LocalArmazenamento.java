@@ -38,6 +38,10 @@ public class LocalArmazenamento {
         return alimentos;
     }
 
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public void adicionarAlimento(Alimento alimento){
         this.alimentos.add(alimento);
     }

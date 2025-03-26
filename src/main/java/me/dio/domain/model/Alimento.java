@@ -44,5 +44,12 @@ public class Alimento {
         return LocalArmazenamentoId;
     }
 
+    public void setLocalArmazenamentoId(LocalArmazenamento localArmazenamentoId) {
+        LocalArmazenamentoId = localArmazenamentoId;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }
 
