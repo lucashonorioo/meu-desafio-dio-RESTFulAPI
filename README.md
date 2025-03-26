@@ -6,13 +6,18 @@ Java RESTful API criada para desafio Bradesco
 ```mermaid
 classDiagram
     class Geladeira {
+        + Long id
         +LocalArmazenamento[] locais
     }
     
     class LocalArmazenamento {
         +Long id
         +string tipo  // "congelador", "porta", "prateleira", "gaveta"
+        +Geladeira geladeira
         +Alimento[] alimentos
+        + void adicionarAlimento(Alimento alimento)
+        + boolean removerAlimento(Alimento alimento)
+        + boolean contemAlimento(string nomeAlimento)
     }
     
     class Alimento {
