@@ -18,7 +18,11 @@ public class LocalArmazenamento {
     private Geladeira geladeira;
 
     @OneToMany(mappedBy = "localArmazenamento")
-    protected List<Alimento> alimentos;
+    private List<Alimento> alimentos;
+
+    public LocalArmazenamento(){
+
+    }
 
     public LocalArmazenamento(Long id, String tipo) {
         this.id = id;
@@ -36,6 +40,10 @@ public class LocalArmazenamento {
 
     public List<Alimento> getAlimentos() {
         return alimentos;
+    }
+
+    public Geladeira getGeladeira() {
+        return geladeira;
     }
 
     public void setTipo(String tipo) {

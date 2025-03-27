@@ -14,14 +14,18 @@ public class Alimento {
 
     @ManyToOne
     @JoinColumn(name = "local_armazenamento_id")
-    private LocalArmazenamento LocalArmazenamentoId;
+    private LocalArmazenamento localArmazenamento;
 
-    public Alimento(Long id, String nome, String categoria, int quantidade, LocalArmazenamento localArmazenamentoId) {
+    public Alimento(){
+
+    }
+
+    public Alimento(Long id, String nome, String categoria, int quantidade, LocalArmazenamento localArmazenamento) {
         this.id = id;
         this.nome = nome;
         this.categoria = categoria;
         this.quantidade = quantidade;
-        LocalArmazenamentoId = localArmazenamentoId;
+        localArmazenamento = localArmazenamento;
     }
 
     public Long getId() {
@@ -40,12 +44,20 @@ public class Alimento {
         return quantidade;
     }
 
-    public LocalArmazenamento getLocalArmazenamentoId() {
-        return LocalArmazenamentoId;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
-    public void setLocalArmazenamentoId(LocalArmazenamento localArmazenamentoId) {
-        LocalArmazenamentoId = localArmazenamentoId;
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public LocalArmazenamento localArmazenamento() {
+        return localArmazenamento;
+    }
+
+    public void setLocalArmazenamento(LocalArmazenamento localArmazenamento) {
+        localArmazenamento = localArmazenamento;
     }
 
     public void setNome(String nome) {

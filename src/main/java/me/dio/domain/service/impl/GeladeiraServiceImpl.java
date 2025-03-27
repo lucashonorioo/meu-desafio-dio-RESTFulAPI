@@ -4,11 +4,13 @@ import me.dio.domain.model.Geladeira;
 import me.dio.domain.repository.GeladeiraRepository;
 import me.dio.domain.service.GeladeiraService;
 import me.dio.domain.service.exception.NotFoundException;
+import me.dio.dto.GeladeiraDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GeladeiraServiceImpl implements GeladeiraService {
@@ -28,6 +30,9 @@ public class GeladeiraServiceImpl implements GeladeiraService {
 
     @Override
     public Geladeira create(Geladeira geladeira) {
+        if (geladeira.getNome() == null || geladeira.getNome().isEmpty()) {
+            throw new IllegalArgumentException("O nome da geladeira é obrigatório.");
+        }
         return geladeiraRepository.save(geladeira);
     }
 
@@ -36,6 +41,7 @@ public class GeladeiraServiceImpl implements GeladeiraService {
         Optional<Geladeira> geladeiraExistenteOptional = geladeiraRepository.findById(id);
         if (geladeiraExistenteOptional.isPresent()) {
             Geladeira geladeiraExistente = geladeiraExistenteOptional.get();
+            geladeiraExistente.setNome(geladeira.getNome());
             return geladeiraRepository.save(geladeiraExistente);
         } else {
             throw new NotFoundException();
