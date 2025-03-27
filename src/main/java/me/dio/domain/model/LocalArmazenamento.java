@@ -50,6 +50,10 @@ public class LocalArmazenamento {
         this.tipo = tipo;
     }
 
+    public void setGeladeira(Geladeira geladeira) {
+        this.geladeira = geladeira;
+    }
+
     public void adicionarAlimento(Alimento alimento){
         this.alimentos.add(alimento);
     }

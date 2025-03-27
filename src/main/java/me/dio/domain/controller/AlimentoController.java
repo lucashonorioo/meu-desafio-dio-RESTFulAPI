@@ -4,7 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import me.dio.domain.model.Alimento;
+import me.dio.domain.model.LocalArmazenamento;
 import me.dio.domain.service.AlimentoService;
+import me.dio.domain.service.LocalArmazenamentoService;
 import me.dio.dto.AlimentoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ public class AlimentoController {
 
     @Autowired
     private AlimentoService alimentoService;
+
+    @Autowired
+    private LocalArmazenamentoService localArmazenamentoService;
 
     @GetMapping
     @Operation(summary = "Lista todos os alimentos", description = "Retorna uma lista com todos os alimentos cadastrados.")
@@ -63,6 +68,11 @@ public class AlimentoController {
         alimento.setNome(alimentoDTO.getNome());
         alimento.setCategoria(alimentoDTO.getCategoria());
         alimento.setQuantidade(alimentoDTO.getQuantidade());
+
+        LocalArmazenamento localArmazenamento = localArmazenamentoService.findById(alimentoDTO.getLocalArmazenamentoId());
+
+        alimento.setLocalArmazenamento(localArmazenamento);
+
         Alimento alimentoCriado = alimentoService.create(alimento);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

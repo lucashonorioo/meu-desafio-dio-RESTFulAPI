@@ -17,8 +17,8 @@ public class AlimentoDTO {
         this.nome = alimento.getNome();
         this.categoria = alimento.getCategoria();
         this.quantidade = alimento.getQuantidade();
-        if (alimento.localArmazenamento() != null) {
-            this.localArmazenamentoId = alimento.localArmazenamento().getId();
+        if (alimento.getLocalArmazenamento() != null) {
+            this.localArmazenamentoId = alimento.getLocalArmazenamento().getId();
         }
     }
 

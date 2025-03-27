@@ -55,6 +55,7 @@ public class LocalArmazenementoServiceImpl implements LocalArmazenamentoService 
         localArmazenamentoRepository.deleteById(id);
     }
 
+    @Transactional
     public List<Alimento> listaAlimentosPorLocal(Long localId){
         LocalArmazenamento local = findById(localId);
         return local.getAlimentos();
@@ -77,7 +78,4 @@ public class LocalArmazenementoServiceImpl implements LocalArmazenamentoService 
             throw new NotFoundException();
         }
     }
-
-
-
 }

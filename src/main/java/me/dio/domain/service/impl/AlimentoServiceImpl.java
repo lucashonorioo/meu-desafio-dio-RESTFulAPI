@@ -44,10 +44,10 @@ public class AlimentoServiceImpl implements AlimentoService {
         if(alimento.getQuantidade() <= 0){
             throw new BusinessException("A quantidade de alimento dever maior que zero");
         }
-        if(alimento.localArmazenamento() == null || alimento.localArmazenamento().getId() == null){
+        if(alimento.getLocalArmazenamento() == null || alimento.getLocalArmazenamento().getId() == null){
             throw new BusinessException("O ID do local de armazenamento precisa ser valido");
         }
-        Long localArmazenamento = alimento.localArmazenamento().getId();
+        Long localArmazenamento = alimento.getLocalArmazenamento().getId();
         Optional<LocalArmazenamento> localArmazenamentoOptional = localArmazenamentoRepository.findById(localArmazenamento);
 
         if(localArmazenamentoOptional.isPresent()){

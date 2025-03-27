@@ -52,12 +52,12 @@ public class Alimento {
         this.quantidade = quantidade;
     }
 
-    public LocalArmazenamento localArmazenamento() {
+    public LocalArmazenamento getLocalArmazenamento() {
         return localArmazenamento;
     }
 
     public void setLocalArmazenamento(LocalArmazenamento localArmazenamento) {
-        localArmazenamento = localArmazenamento;
+        this.localArmazenamento = localArmazenamento;
     }
 
     public void setNome(String nome) {

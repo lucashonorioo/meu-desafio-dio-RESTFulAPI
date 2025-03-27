@@ -4,7 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import me.dio.domain.model.Alimento;
+import me.dio.domain.model.Geladeira;
 import me.dio.domain.model.LocalArmazenamento;
+import me.dio.domain.service.GeladeiraService;
 import me.dio.domain.service.LocalArmazenamentoService;
 import me.dio.dto.LocalArmazenamentoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class LocalArmazenamentoController {
 
     @Autowired
     private LocalArmazenamentoService localArmazenamentoService;
+
+    @Autowired
+    private GeladeiraService geladeiraService;
 
     @GetMapping
     @Operation(summary = "Lista todos os locais de armazenamento", description = "Retorna uma lista com todos os locais de armazenamento cadastrados.")
@@ -62,6 +67,9 @@ public class LocalArmazenamentoController {
     public ResponseEntity<LocalArmazenamentoDTO> create(@RequestBody LocalArmazenamentoDTO localDTO) {
         LocalArmazenamento local = new LocalArmazenamento();
         local.setTipo(localDTO.getTipo());
+        Geladeira geladeira = geladeiraService.findById(localDTO.getGeladeiraId());
+        local.setGeladeira(geladeira);
+
         LocalArmazenamento localCriado = localArmazenamentoService.create(local);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
