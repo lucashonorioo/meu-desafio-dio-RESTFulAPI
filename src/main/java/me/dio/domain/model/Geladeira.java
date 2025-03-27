@@ -22,4 +22,8 @@ public class Geladeira {
     public List<LocalArmazenamento> getLocais() {
         return locais;
     }
+
+    public Long getId() {
+        return id;
+    }
 }
