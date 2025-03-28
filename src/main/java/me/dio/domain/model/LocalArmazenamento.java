@@ -17,8 +17,9 @@ public class LocalArmazenamento {
     @JoinColumn(name = "geladiera_id")
     private Geladeira geladeira;
 
-    @OneToMany(mappedBy = "localArmazenamento")
-    private List<Alimento> alimentos;
+    @OneToMany(mappedBy = "localArmazenamento", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Alimento> alimentos = new ArrayList<>();
+
 
     public LocalArmazenamento(){
 

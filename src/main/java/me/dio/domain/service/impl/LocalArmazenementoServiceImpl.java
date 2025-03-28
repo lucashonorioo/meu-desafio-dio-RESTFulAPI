@@ -3,11 +3,13 @@ package me.dio.domain.service.impl;
 import jakarta.transaction.Transactional;
 import me.dio.domain.model.Alimento;
 import me.dio.domain.model.LocalArmazenamento;
+import me.dio.domain.repository.AlimentoRepository;
 import me.dio.domain.repository.LocalArmazenamentoRepository;
 import me.dio.domain.service.AlimentoService;
 import me.dio.domain.service.LocalArmazenamentoService;
 import me.dio.domain.service.exception.BusinessException;
 import me.dio.domain.service.exception.NotFoundException;
+import me.dio.dto.AlimentoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,10 @@ public class LocalArmazenementoServiceImpl implements LocalArmazenamentoService 
 
     @Autowired
     private LocalArmazenamentoRepository localArmazenamentoRepository;
+
+    @Autowired
+    private AlimentoRepository alimentoRepository;
+
     @Autowired
     private AlimentoService alimentoService;
 
@@ -56,25 +62,18 @@ public class LocalArmazenementoServiceImpl implements LocalArmazenamentoService 
     }
 
     @Transactional
-    public List<Alimento> listaAlimentosPorLocal(Long localId){
-        LocalArmazenamento local = findById(localId);
-        return local.getAlimentos();
+    public List<Alimento> listaAlimentosPorLocal(Long localId) {
+        return alimentoRepository.findByLocalArmazenamentoId(localId);
     }
 
     @Transactional
-    public void removerAlimentoDoLocal(Long localId, Long alimentoId){
+    public void removerAlimentoDoLocal(Long localId, Long alimentoId) {
         LocalArmazenamento local = findById(localId);
-        Alimento alimentoParaRemover = alimentoService.findById(alimentoId);
+        Alimento alimento = alimentoRepository.findById(alimentoId).orElseThrow(NotFoundException::new);
 
-        if(alimentoParaRemover != null){
-            if(local.removerAlimento(alimentoParaRemover)){
-                localArmazenamentoRepository.save(local);
-            }
-            else{
-                throw new NotFoundException();
-            }
-        }
-        else{
+        if (alimento.getLocalArmazenamento() != null && alimento.getLocalArmazenamento().getId().equals(localId)) {
+            alimentoRepository.deleteAlimentoById(alimentoId);
+        } else {
             throw new NotFoundException();
         }
     }

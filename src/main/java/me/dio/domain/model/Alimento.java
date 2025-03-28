@@ -1,5 +1,6 @@
 package me.dio.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity(name = "tb_alimento")
@@ -14,6 +15,7 @@ public class Alimento {
 
     @ManyToOne
     @JoinColumn(name = "local_armazenamento_id")
+    @JsonIgnore
     private LocalArmazenamento localArmazenamento;
 
     public Alimento(){
